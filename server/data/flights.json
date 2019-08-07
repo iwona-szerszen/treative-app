@@ -1,0 +1,38 @@
+[
+	{
+		"_id": "5c3f573551a9ce233ca6a301",
+		"flightNumber": "F_1",
+		"departureDateTime": "2020-09-01T12:00:00",
+		"arrivalDateTime": "2020-09-01T12:30:00",
+		"seatsTotal": "5",
+		"price": "300000",
+		"tourists": ["5c3f3af3c88fdf27d4522101"]
+	},
+	{
+		"_id": "5c3f573551a9ce233ca6a302",
+		"flightNumber": "F_2",
+		"departureDateTime": "2020-10-01T13:00:00",
+		"arrivalDateTime": "2020-10-01T13:30:00",
+		"seatsTotal": "6",
+		"price": "290000",
+		"tourists": ["5c3f3af3c88fdf27d4522101","5c3f3af3c88fdf27d4522102"]
+	},
+	{
+		"_id": "5c3f573551a9ce233ca6a303",
+		"flightNumber": "F_3",
+		"departureDateTime": "2020-11-01T14:00:00",
+		"arrivalDateTime": "2020-11-01T14:30:00",
+		"seatsTotal": "7",
+		"price": "280000",
+		"tourists": ["5c3f3af3c88fdf27d4522103"]
+	},
+	{
+		"_id": "5c3f573551a9ce233ca6a304",
+		"flightNumber": "F_4",
+		"departureDateTime": "2020-12-01T15:00:00",
+		"arrivalDateTime": "2020-12-01T15:30:00",
+		"seatsTotal": "8",
+		"price": "270000",
+		"tourists": ["5c3f3af3c88fdf27d4522104"]
+	}
+]

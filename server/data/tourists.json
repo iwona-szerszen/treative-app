@@ -1,0 +1,50 @@
+[
+	{
+		"_id": "5c3f3af3c88fdf27d4522101",
+		"firstName": "First_1",
+		"lastName": "Last_1",
+		"sex": "male",
+		"country": "USA",
+		"birthDate": "1980-01-01",
+		"notes": "notes of tourist no 1",
+		"flights": ["5c3f573551a9ce233ca6a301", "5c3f573551a9ce233ca6a302"]
+	},
+	{
+		"_id": "5c3f3af3c88fdf27d4522102",
+		"firstName": "First_2",
+		"lastName": "Last_2",
+		"sex": "female",
+		"country": "USA",
+		"birthDate": "1980-01-02",
+		"notes": "notes of tourist no 2",
+		"flights": ["5c3f573551a9ce233ca6a302"]
+	},
+	{
+		"_id": "5c3f3af3c88fdf27d4522103",
+		"firstName": "First_3",
+		"lastName": "Last_3",
+		"sex": "female",
+		"country": "UK",
+		"birthDate": "1980-01-03",
+		"notes": "notes of tourist no 3",
+		"flights": ["5c3f573551a9ce233ca6a303"]
+	},
+	{
+		"_id": "5c3f3af3c88fdf27d4522104",
+		"firstName": "First_4",
+		"lastName": "Last_4",
+		"sex": "male",
+		"country": "Canada",
+		"birthDate": "1980-01-04",
+		"flights": ["5c3f573551a9ce233ca6a304"]
+	},
+		{
+		"_id": "5c3f3af3c88fdf27d4522105",
+		"firstName": "First_5",
+		"lastName": "Last_5",
+		"sex": "female",
+		"country": "Germany",
+		"birthDate": "1980-01-05",
+		"notes": "notes of tourist no 5"
+	}
+]
