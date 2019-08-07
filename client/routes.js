@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './modules/App/App';
+import AppTemplate from './modules/AppTemplate/AppTemplate';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -10,34 +10,74 @@ if (typeof require.ensure !== 'function') {
   };
 }
 
-/* Workaround for async react routes to work with react-hot-reloader till
-  https://github.com/reactjs/react-router/issues/2182 and
-  https://github.com/gaearon/react-hot-loader/issues/288 is fixed.
- */
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
-  require('./modules/Post/pages/PostListPage/PostListPage');
-  require('./modules/Post/pages/PostDetailPage/PostDetailPage');
+  require('./modules/Home/components/Home');
+  require('./modules/Tourist/components/TouristsPageContainer');
+  require('./modules/Tourist/components/AddTourist/AddTouristContainer');
+  require('./modules/Tourist/components/EditTourist/EditTouristContainer');
+  require('./modules/Flight/components/FlightsPageContainer');
+  require('./modules/Flight/components/AddFlight/AddFlightContainer');
+  require('./modules/Flight/components/EditFlight/EditFlightContainer');
 }
 
 // react-router setup with code-splitting
-// More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default (
-  <Route path="/" component={App}>
+  <Route path='/' component={AppTemplate}>
     <IndexRoute
       getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Home/components/Home').default);
+          });
+      }}
+    />
+    <Route
+      path='/tourists'
+      getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
+          cb(null, require('./modules/Tourist/components/TouristsPageContainer').default);
         });
       }}
     />
     <Route
-      path="/posts/:slug-:cuid"
+      path='/tourists/add'
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
+          cb(null, require('./modules/Tourist/components/AddTourist/AddTouristContainer').default);
+        });
+      }}
+    />    
+    <Route
+      path='/tourists/edit/:id'
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Tourist/components/EditTourist/EditTouristContainer').default);
         });
       }}
     />
-  </Route>
+    <Route
+      path='/flights'
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Flight/components/FlightsPageContainer').default);
+        });
+      }}
+    />
+    <Route
+      path='/flights/add'
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Flight/components/AddFlight/AddFlightContainer').default);
+        });
+      }}
+    />
+    <Route
+      path='/flights/edit/:id'
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Flight/components/EditFlight/EditFlightContainer').default);
+        });
+      }}
+    />
+  </Route> 
 );
