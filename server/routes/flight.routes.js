@@ -12,6 +12,9 @@ router.route('/flights/edit/:id').get(FlightController.getFlight);
 // Add a new flight
 router.route('/flights/add').post(FlightController.addFlight);
 
+// Edit a flight by id
+router.route('/flights/edit/:id').put(FlightController.editFlight);
+
 // Delete a flight by id
 router.route('/flights/:id').delete(FlightController.deleteFlight);
 

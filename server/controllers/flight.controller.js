@@ -80,6 +80,42 @@ export function addFlight(req, res) {
 
 }
 
+// Edit a tourist by id
+export function editFlight(req, res) {
+
+	const appendedTourist = req.body.flightEditedTourists.appendedTourist;
+	const removedTourist = req.body.flightEditedTourists.removedTourist;
+
+	if (!appendedTourist && !removedTourist) {
+		res.status(403).end();
+	}
+
+	Flight.findOne({ _id: req.params.id })
+		.then(flight => {
+			if (appendedTourist) {
+				flight.tourists.push({ _id: appendedTourist });
+				Tourist.findOne({ _id: appendedTourist })
+					.then(tourist => {
+						tourist.flights.push({ _id: req.params.id });
+						return tourist.save();
+					})
+					.catch(err => res.status(500).send(err));
+			}
+			if (removedTourist) {
+				flight.tourists.pull({ _id: removedTourist });
+				Tourist.findOne({ _id: removedTourist })
+					.then(tourist => {
+						tourist.flights.pull({ _id: req.params.id });
+						return tourist.save();
+					})
+					.catch(err => res.status(500).send(err));
+			}
+			return flight.save();
+		})
+		.then(flightUpdated => res.json(flightUpdated))
+		.catch(err => res.status(500).send(err));
+}
+
 // Delete a flight by id
 export function deleteFlight(req, res) {
 	Flight.findOne({ _id: req.params.id }).exec((err, flight) => {
