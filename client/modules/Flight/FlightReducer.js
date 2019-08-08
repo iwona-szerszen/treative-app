@@ -1,4 +1,4 @@
-import { LOAD_FLIGHTS, LOAD_FLIGHT, ADD_FLIGHT, DELETE_FLIGHT } from './FlightActions';
+import { LOAD_FLIGHTS, LOAD_FLIGHT, ADD_FLIGHT, EDIT_FLIGHT, DELETE_FLIGHT } from './FlightActions';
 
 // Initial State
 const initialState = { 
@@ -6,12 +6,13 @@ const initialState = {
 	editedFlight: {
 		_id: '',
 		flightNumber: '',
-		departureDateTime: '1900-01-01T00:00:00',
-		arrivalDateTime: '1900-01-01T00:00:00',
-		seatsTotal: 0,
-		price: 0,
+		departureDateTime: '',
+		arrivalDateTime: '',
+		seatsTotal: '',
+		price: '',
 		tourists: [],
-		flightTouristsAvailableToAdd: []
+		ifAppendingTouristPossible: '',
+		flightTouristsAvailableToAppend: []
 	}
 };
 
@@ -20,11 +21,14 @@ const FlightReducer = (state = initialState, action) => {
 		case LOAD_FLIGHTS:
 			return Object.assign({}, state, {data: action.flights});
 		case LOAD_FLIGHT:
-			const flightTouristsAvailableToAdd = action.allTourists.filter(tourist => !tourist.flights.includes(action.flight._id));
-			const editedFlight = Object.assign({}, action.flight, { flightTouristsAvailableToAdd });
+			const ifAppendingTouristPossible = (action.flight.seatsTotal > action.flight.tourists.length) ? true : false;
+			const flightTouristsAvailableToAppend = action.allTourists.filter(tourist => !tourist.flights.includes(action.flight._id));
+			const editedFlight = Object.assign({}, action.flight, { flightTouristsAvailableToAppend, ifAppendingTouristPossible });
 			return Object.assign({}, state, { editedFlight });
 		case ADD_FLIGHT:
-			const updatedData = [...state.data, action.flight];
+			return Object.assign({}, state, { data: [...state.data, action.flight] });
+		case EDIT_FLIGHT:
+			const updatedData = [...state.data.filter(flight => flight._id !== action.flightUpdated._id), action.flightUpdated];
 			return Object.assign({}, state, { data: updatedData });
 		case DELETE_FLIGHT:
 			const data = state.data.filter(flight => flight._id !== action.flightId);

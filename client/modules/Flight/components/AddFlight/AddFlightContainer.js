@@ -34,7 +34,9 @@ class AddFlightContainer extends Component {
 			event.preventDefault();
 			const flight = this.state.flightForm;
 			this.props.dispatch(addFlightRequest(flight)).then(this.context.router.push('/flights'));
-		}	
+		} else {
+			this.context.router.push('/flights');
+		}
 	}
 
 	render() {

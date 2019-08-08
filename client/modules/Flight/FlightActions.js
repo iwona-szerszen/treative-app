@@ -4,6 +4,7 @@ import callApi from '../../util/apiCaller';
 export const LOAD_FLIGHTS = 'LOAD_FLIGHTS';
 export const LOAD_FLIGHT = 'LOAD_FLIGHT';
 export const ADD_FLIGHT = 'ADD_FLIGHT';
+export const EDIT_FLIGHT = 'EDIT_FLIGHT';
 export const DELETE_FLIGHT = 'DELETE_FLIGHT';
 
 // Export Actions
@@ -22,11 +23,11 @@ export function loadFlights(flights) {
 
 export function fetchFlightRequest(flightId) {
 	return dispatch => {
-		return callApi(`flights/edit/${flightId}`).then(res => dispatch(loadTourist(res)));
+		return callApi(`flights/edit/${flightId}`).then(res => dispatch(loadFlight(res)));
 	};
 }
 
-export function loadTourist(res) {
+export function loadFlight(res) {
 	return {
 		type: LOAD_FLIGHT,
 		flight: res.flight,
@@ -47,10 +48,24 @@ export function addFlight(flight) {
 	};
 }
 
+export function editFlightRequest(flightId, flightEditedTourists) {
+	return dispatch => {
+		return callApi(`flights/edit/${flightId}`, 'put', { flightEditedTourists })
+			.then(res => dispatch(editFlight(res)));
+	};
+}
+
+export function editFlight(flightUpdated) {
+	return {
+		type: EDIT_FLIGHT,
+		flightUpdated
+	};
+}
+
 export function deleteFlightRequest(flightId) {
 	return dispatch => {
-		return callApi(`flights/${flightId}`, 'delete').
-			then(() => dispatch(deleteFlight(flightId)));
+		return callApi(`flights/${flightId}`, 'delete')
+			.then(() => dispatch(deleteFlight(flightId)));
 	};
 }
 

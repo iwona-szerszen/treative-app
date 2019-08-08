@@ -6,20 +6,55 @@ import { connect } from 'react-redux';
 import EditFlight from './EditFlight';
 
 // Import Action
-import { fetchFlightRequest } from '../../FlightActions';
+import { fetchFlightRequest, editFlightRequest } from '../../FlightActions';
 
 // Import Selector
 import { getFlight } from '../../FlightReducer';
 
 class EditFlightContainer extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			editedForm: {
+				touristToAppend: '',
+				touristToRemove: ''
+			}
+		};
+	}
+
 	componentDidMount() {
 		this.props.dispatch(fetchFlightRequest(this.props.params.id));
 	}
 
+	handleFlightChange(event) {
+		const editedForm = Object.assign({}, this.state.editedForm);
+		editedForm[event.target.name] = event.target.value;
+		this.setState({ editedForm });
+	}
+
+	handleSubmitEditFlight(event) {
+		if (confirm('Do you want to edit flight?')) {
+			event.preventDefault();
+			const flightEditedTourists = {
+				appendedTourist: this.state.editedForm.touristToAppend,
+				removedTourist: this.state.editedForm.touristToRemove
+			};
+			this.props.dispatch(editFlightRequest(this.props.params.id, flightEditedTourists))
+				.then(this.context.router.push('flights'));
+		} else {
+			this.context.router.push('flights');
+		}
+	}
+
 	render() {
 		return (
-			<EditFlight flight={this.props.flight} />
+			<EditFlight 
+				flight={this.props.flight}
+				editedForm={this.state.editedForm}
+				onFlightChange={this.handleFlightChange.bind(this)}
+				onSubmitEditFlight={this.handleSubmitEditFlight.bind(this)}
+			/>
 		);
 	}
 
