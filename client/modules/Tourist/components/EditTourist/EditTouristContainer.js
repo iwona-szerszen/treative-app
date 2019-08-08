@@ -42,6 +42,8 @@ class EditTouristContainer extends Component {
 			};
 			this.props.dispatch(editTouristRequest(this.props.params.id ,touristEditedFlights))
 				.then(this.context.router.push('tourists'));
+		} else {
+			this.context.router.push('tourists');
 		}
 	}
 

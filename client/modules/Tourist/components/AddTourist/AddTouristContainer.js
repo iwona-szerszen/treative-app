@@ -35,7 +35,9 @@ class AddTouristContainer extends Component {
 			event.preventDefault();
 			const tourist = this.state.touristForm;
 			this.props.dispatch(addTouristRequest(tourist)).then(this.context.router.push('/tourists'));
-		}	
+		} else {
+			this.context.router.push('/tourists');
+		}
 	}
 
 	render() {

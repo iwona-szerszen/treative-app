@@ -103,9 +103,9 @@ export function editTourist(req, res) {
 				}
 			if (removedFlight) {
 				tourist.flights.pull({ _id: removedFlight });
-					Flight.findOne({ _id: removedFlight })
+				Flight.findOne({ _id: removedFlight })
 					.then(flight => {
-						flight.tourists.pull({ _id: req.params.id })
+						flight.tourists.pull({ _id: req.params.id });
 						return flight.save();
 					})
 					.catch(err => res.status(500).send(err));
